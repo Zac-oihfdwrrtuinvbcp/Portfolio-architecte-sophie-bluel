@@ -1,4 +1,6 @@
 import { fetchCategories, fetchWorks, deleteWork } from "./client.js";
+import { displayWorks } from "./util.js";
+import { openGalleryModal } from "./modal.js";
 
 function displayCategories(categories) {
   const portfolioSection = document.querySelector("#portfolio");
@@ -28,81 +30,6 @@ function displayCategories(categories) {
   );
 }
 
-const displayWorks = (works) => {
-  const gallery = document.querySelector(".gallery");
-  gallery.innerHTML = "";
-
-  works.forEach((work) => {
-    const figure = createWork(work);
-    gallery.appendChild(figure);
-  });
-};
-
-function createWork(work) {
-  const figure = document.createElement("figure");
-  const img = document.createElement("img");
-  img.src = work.imageUrl;
-  img.alt = work.title;
-  const figcaption = document.createElement("figcaption");
-  figcaption.textContent = work.title;
-
-  figure.appendChild(img);
-  figure.appendChild(figcaption);
-  return figure;
-}
-
-function openEditModal() {
-  const modal = document.createElement("div");
-  modal.classList.add("modal");
-
-  const modalContent = document.createElement("div");
-  modalContent.classList.add("modal-content");
-
-  const closeButton = document.createElement("span");
-  closeButton.classList.add("close-button");
-  closeButton.textContent = "×";
-  closeButton.addEventListener("click", () => modal.remove());
-  modalContent.appendChild(closeButton);
-
-  const title = document.createElement("h3");
-  title.textContent = "Galerie photo";
-  modalContent.appendChild(title);
-
-  const gallery = document.createElement("div");
-  gallery.classList.add("gallery");
-  works.forEach((work) => {
-    const figure = createWork(work);
-
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "Delete";
-    deleteButton.addEventListener("click", () => deleteWork(work.id, figure));
-
-    figure.appendChild(deleteButton);
-    gallery.appendChild(figure);
-  });
-
-  modalContent.appendChild(gallery);
-  modal.appendChild(modalContent);
-  document.body.appendChild(modal);
-}
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     const authButton = document.getElementById('auth-button');
-//     const token = localStorage.getItem('token');
-
-//     if (token) {
-//         authButton.textContent = 'logout';
-//         authButton.href = '#';
-//         authButton.addEventListener('click', () => {
-//             localStorage.removeItem('token');
-//             window.location.reload();
-//         });
-//     } else {
-//         authButton.textContent = 'login';
-//         authButton.href = 'login.html';
-//     }
-// });
-
 const categories = await fetchCategories();
 categories.unshift({ id: 0, name: "Tous" });
 
@@ -110,6 +37,12 @@ const authButton = document.getElementById("auth-button");
 const token = localStorage.getItem("token");
 
 if (token) {
+  console.log("Logged in:", token);
+
+  //show edit mode banner
+  document.querySelector(".edit-mode").style.display = "flex";
+
+  //update login/logout button
   authButton.textContent = "logout";
   authButton.href = "#";
   authButton.addEventListener("click", () => {
@@ -117,15 +50,11 @@ if (token) {
     window.location.reload();
   });
 
-  console.log("Logged in:", token);
+  //show edit button
+  const editButton = document.querySelector(".edit-button");
+  editButton.style.display = "inline-block";
+  editButton.addEventListener("click", () => openGalleryModal(works));
 
-  const editButton = document.createElement("button");
-  editButton.textContent = "Modifier";
-  editButton.addEventListener("click", openEditModal);
-  const portfolioSection = document.querySelector("#portfolio");
-  portfolioSection
-    .querySelector("h2")
-    .insertAdjacentElement("afterend", editButton);
 } else {
   authButton.textContent = "login";
   authButton.href = "login.html";

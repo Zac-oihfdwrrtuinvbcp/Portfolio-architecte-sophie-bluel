@@ -123,7 +123,6 @@ li:hover {
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
 }
 .gallery {
 	width: 100%;
@@ -169,7 +168,7 @@ margin: auto;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+input[type="submit"], .add-work-button{
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
@@ -257,7 +256,7 @@ footer nav ul {
 	flex-direction: column;
 	align-items: center;
 	max-height: calc(80vh - 20px);
-	width: 30%;
+	width: 630px;
     background-color: white;
     padding: 30px;
     border-radius: 10px;
@@ -271,3 +270,60 @@ footer nav ul {
     font-size: 24px;
     cursor: pointer;
 }
+
+.modal-gallery {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 10px;
+	width: 100%;
+	padding: 20px 0;
+  }
+
+  .modal-gallery figure {
+	position: relative;
+  }
+
+  .delete-button {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	background-color: black;
+	color: white;
+	border: none;
+	border-radius: 2px;
+	width: 17px;
+	height: 17px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	font-size: 10px;
+  }
+
+.edit-mode {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 59px;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    background-color: black;
+    color: white;
+    position: relative;
+	gap: 10px;
+  }
+
+  .edit-button {
+	display: none;
+	background: none;
+	border: none;
+	font-size: 14px;
+	cursor: pointer;
+  }
+  
+  .portfolio-header {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-bottom: 1em;
+  }

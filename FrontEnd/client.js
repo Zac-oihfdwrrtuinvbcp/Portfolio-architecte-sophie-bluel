@@ -39,7 +39,7 @@ export async function fetchWorks() {
     }
 }
 
-export async function deleteWork(id, figure) {
+export async function deleteWork(id) {
     try {
         const res = await fetch(`http://localhost:5678/api/works/${id}`, {
             method: 'DELETE',
@@ -47,12 +47,27 @@ export async function deleteWork(id, figure) {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         });
-        if (res.ok) {
-            figure.remove();
-        } else {
+        if (!res.ok) {
             console.error('Failed to delete work');
         }
     } catch (error) {
         console.error('Error deleting work:', error);
+    }
+}
+
+export async function addWork(formData) {
+    try {
+        const res = await fetch('http://localhost:5678/api/works', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: formData
+        });
+        if (!res.ok) {
+            console.error('Failed to add work');
+        }
+    } catch (error) {
+        console.error('Error adding work:', error);
     }
 }
