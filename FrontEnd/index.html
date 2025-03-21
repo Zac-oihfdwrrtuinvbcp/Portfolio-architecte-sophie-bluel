@@ -75,8 +75,34 @@
 		<span class="close-button">&times;</span>
 		<h3>Galerie photo</h3>
 		<div class="gallery modal-gallery"></div>
-		<hr>
 		<button class="add-work-button">Ajouter une photo</button>
+	  </div>
+	</div>
+</template>
+
+<template id="add-work-modal-template">
+	<div class="modal">
+	  <div class="modal-content">
+		<span class="back-button">&larr;</span>
+		<span class="close-button">&times;</span>
+		<h3>Ajout photo</h3>
+		<form id="add-work-form" class="form-section">
+		  <div class="upload-container">
+			<img id="preview-image" style="display: none;">
+			<label for="image-upload" class="upload-label">
+			  <i class="fa fa-image"></i>
+			  <span>+ Ajouter photo</span>
+			  <p>jpg, png: 4mo max</p>
+			</label>
+			<input type="file" id="image-upload" name="image" accept="image/png, image/jpeg" required>
+		  </div>
+			<label for="title">Titre</label>
+			<input type="text" name="title" id="title" required>
+			<label for="category">Catégorie</label>
+			<select name="category" id="category" required>
+			</select>
+		  <button type="submit" class="submit-button">Valider</button>
+		</form>
 	  </div>
 	</div>
 </template>

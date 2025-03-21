@@ -30,7 +30,7 @@ function displayCategories(categories) {
   );
 }
 
-const categories = await fetchCategories();
+export const categories = await fetchCategories();
 categories.unshift({ id: 0, name: "Tous" });
 
 const authButton = document.getElementById("auth-button");

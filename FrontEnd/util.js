@@ -12,9 +12,12 @@ export function displayWorks (works) {
   
 export function createWork(work) {
     const figure = document.createElement("figure");
+    figure.dataset.workId = work.id;
+
     const img = document.createElement("img");
     img.src = work.imageUrl;
     img.alt = work.title;
+    
     const figcaption = document.createElement("figcaption");
     figcaption.textContent = work.title;
   
