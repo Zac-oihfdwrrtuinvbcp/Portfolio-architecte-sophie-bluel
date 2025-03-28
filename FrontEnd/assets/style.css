@@ -124,6 +124,7 @@ li:hover {
 #portfolio h2 {
 	text-align: center;
 }
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -255,12 +256,14 @@ footer nav ul {
     justify-content: center;
 	flex-direction: column;
 	align-items: center;
-	max-height: calc(80vh - 20px);
+	max-height: 80vh;
 	width: 630px;
     background-color: white;
     padding: 30px;
     border-radius: 10px;
     position: relative;
+	padding-bottom: 15px;
+	overflow: hidden;
 }
 
 .close-button {
@@ -277,10 +280,25 @@ footer nav ul {
 	gap: 10px;
 	width: 100%;
 	padding: 20px 0;
+	max-height: 400px;
+	overflow-y: auto;
+	margin-bottom: 20px;
+  }
+
+  .modal-gallery img {
+	width: 100%;
+	height: 100px;
+	object-fit: cover;
   }
 
   .modal-gallery figure {
 	position: relative;
+  }
+
+  #gallery-modal-template .modal-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
   }
 
   .delete-button {
@@ -324,9 +342,19 @@ footer nav ul {
   .portfolio-header {
 	display: flex;
 	justify-content: center;
+	align-items: center;
+	width: 100%;
 	gap: 10px;
 	margin-bottom: 1em;
   }
+
+.spacer, .edit-button {
+	width: 80px;
+}
+
+.spacer {
+	visibility: hidden;
+}
 
 .back-button {
     position: absolute;
@@ -362,6 +390,26 @@ footer nav ul {
     cursor: pointer;
 }
 
+.upload-label i {
+    font-size: 46px;
+    color: #B9C5CC;
+    margin-bottom: 10px;
+}
+
+.upload-label span {
+    background-color: #CBD6DC;
+    color: #306685;
+    padding: 10px 30px;
+    border-radius: 50px;
+    margin-bottom: 10px;
+}
+
+.upload-label p {
+    color: #444444;
+    font-size: 10px;
+}
+
+
 #image-upload {
     display: none;
 }
@@ -371,3 +419,69 @@ footer nav ul {
     max-width: 100%;
     object-fit: contain;
 }
+
+.error-message {
+    color: #d65353;
+    font-size: 12px;
+    margin-top: 1px;
+    display: block;
+    min-height: 15px;
+}
+
+.modal .form-section {
+    width: 100%;
+    margin: 0;
+}
+
+.modal .form-section label {
+	text-align: left;
+}
+
+.submit-button.disabled {
+    background-color: #A7A7A7;
+    cursor: not-allowed;
+}
+
+.modal h3 {
+	margin-bottom: 20px;
+	font-size: 26px;
+}
+
+.modal .form-section select {
+	height: 50px;
+	font-size: 1.2em;
+	text-align: left;
+	
+}
+
+select:focus {
+	outline: none;
+  }
+
+  .modal-content hr {
+	width: 100%;
+	height: 1px;
+	background-color: #B3B3B3;
+	border: none;
+	margin: 10px 0;
+  }
+  
+
+  .add-work-button, .submit-button {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin: 2em auto;
+	width: 180px;
+	text-align: center;
+	border-radius: 60px;
+	padding: 5px 0;
+	border: none;
+	cursor: pointer;
+  }
+
+  input, select, textarea {
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	border: none;
+  }

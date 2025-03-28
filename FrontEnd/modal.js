@@ -61,6 +61,18 @@ export async function openAddWorkModal() {
     const previewImage = modalFragment.querySelector('#preview-image');
     const categorySelect = modalFragment.querySelector('#category');
     const uploadLabel = modalFragment.querySelector('.upload-label');
+    const titleInput = modalFragment.querySelector('#title');
+    const submitButton = modalFragment.querySelector('.submit-button');
+
+    const imageError = modalFragment.querySelector('.image-error');
+    const titleError = modalFragment.querySelector('.title-error');
+    const categoryError = modalFragment.querySelector('.category-error');
+
+    const validationState = {
+        image: false,
+        title: false,
+        category: false
+    };
     
     modalFragment.querySelector('.close-button').addEventListener('click', () => modal.remove());
     
@@ -69,34 +81,83 @@ export async function openAddWorkModal() {
         openGalleryModal(updatedWorks);
     });
     
+    // Image validation
     imageInput.addEventListener('change', (e) => {
+        imageError.textContent = '';
+        validationState.image = false;
+
         if (e.target.files.length > 0) {
             const file = e.target.files[0];
             const reader = new FileReader();
             
             if ( file.size > 4 * 1024 * 1024){
-                alert("File is too big!");
+                imageError.textContent = 'L\'image est trop volumineuse (max 4Mo)';
                 return;
             }
             const [type, extension] = file.type.split("/");
             if(type !== 'image'){
-                alert("File is not an image!");
+                imageError.textContent = 'Le fichier doit être une image';
                 return;
             }else if (["jpeg", "png", "jpg"].includes(extension) === false){
-                console.log(file.type);
+                imageError.textContent = 'Format non supporté (jpg, jpeg, png uniquement)';
                 return;
             }
+
+            validationState.image = true;
             reader.onload = (e) => {
                 previewImage.src = e.target.result;
                 previewImage.style.display = 'block';
                 uploadLabel.style.display = 'none';
+                updateSubmitButton();
             };
-            
+
             reader.readAsDataURL(file);
         }
     });
+
+    //Title validation
+    titleInput.addEventListener('input', () => {
+        titleError.textContent = '';
+        validationState.title = false;
+
+        if (titleInput.value.length < 3){
+            titleError.textContent = 'Le titre doit contenir au moins 3 caractères';
+        } else if (titleInput.value.length > 55){
+            titleError.textContent = 'Le titre doit contenir au maximum 55 caractères';
+        } else{
+            validationState.title = true;
+        }
+
+        updateSubmitButton();
+    });
+
+    // Category validation
+    categorySelect.addEventListener('change', () => {
+        categoryError.textContent = '';
+        validationState.category = false;
+
+        console.log(categorySelect.value);
+
+        if (categorySelect.value == 0){
+            categoryError.textContent = 'Veuillez sélectionner une catégorie';
+            updateSubmitButton()
+            return;
+        }
+
+        validationState.category = true;
+        updateSubmitButton();
+    });
+
+    function updateSubmitButton() {
+        if (validationState.image && validationState.title && validationState.category) {
+            submitButton.disabled = false;
+            submitButton.classList.remove('disabled');
+        } else {
+            submitButton.disabled = true;
+            submitButton.classList.add('disabled');
+        }
+    }
     
-    console.log(categories);
     categories.forEach(category => {
             const option = document.createElement('option');
             option.value = category.id;
