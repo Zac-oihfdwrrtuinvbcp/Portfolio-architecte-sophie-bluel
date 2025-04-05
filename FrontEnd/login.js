@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
        const email = loginForm.querySelector('input[type="email"]').value;
        const password = loginForm.querySelector('input[type="password"]').value;
+       const loginError = document.querySelector('.login-error');
+
+       
 
         login({ email, password })
         .then(data => {
@@ -14,8 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = 'index.html';
         })
         .catch(error => {
-            console.error(error.name);
-            popUp(error.message);
+            loginError.textContent = "Adress Mail or password incorrect";
+            //popUp(error.message);
         });
     });
 });
