@@ -37,8 +37,6 @@ const authButton = document.getElementById("auth-button");
 const token = localStorage.getItem("token");
 
 if (token) {
-  console.log("Logged in:", token);
-
   //show edit mode banner
   document.querySelector(".edit-mode").style.display = "flex";
 
@@ -53,6 +51,8 @@ if (token) {
   //show edit button
   const editButton = document.querySelector(".edit-button");
   editButton.style.display = "inline-block";
+  const spacer = document.querySelector(".spacer");
+  spacer.style.display = "inline-block";
   editButton.addEventListener("click", () => openGalleryModal(works));
 
 } else {

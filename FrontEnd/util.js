@@ -10,7 +10,7 @@ export function displayWorks (works) {
     gallery.appendChild(fragment);
   };
   
-export function createWork(work) {
+export function createWork(work, withTitle = true) {
     const figure = document.createElement("figure");
     figure.dataset.workId = work.id;
 
@@ -18,10 +18,12 @@ export function createWork(work) {
     img.src = work.imageUrl;
     img.alt = work.title;
     
-    const figcaption = document.createElement("figcaption");
-    figcaption.textContent = work.title;
-  
     figure.appendChild(img);
-    figure.appendChild(figcaption);
+
+    if (withTitle){
+      const figcaption = document.createElement("figcaption");
+      figcaption.textContent = work.title;
+      figure.appendChild(figcaption);
+    }
     return figure;
   }

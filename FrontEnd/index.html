@@ -18,7 +18,7 @@
 	<nav>
 		<ul>
 			<li><a href="index.html">projets</a></li>
-			<li>contact</li>
+			<li><a href="index.html#contact">contact</a></li>
 			<li><a href="login.html" id="auth-button">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
@@ -38,7 +38,7 @@
 	</section>
 	<section id="portfolio">
 		<div class="portfolio-header">
-			<div class="spacer"></div>
+			<div class="spacer" style="display: none;"></div>
 			<h2>Mes Projets</h2>
 			<button class="edit-button"><i class="fa-regular fa-pen-to-square"></i> modifier</button>	
 		</div>
@@ -71,46 +71,50 @@
 <script src="./main.js" type="module"></script>
 
 <template id="gallery-modal-template">
-	<div class="modal">
-	  <div class="modal-content">
-		<span class="close-button">&times;</span>
-		<h3>Galerie photo</h3>
-		<div class="gallery modal-gallery"></div>
-		<hr>
-		<button class="add-work-button">Ajouter une photo</button>
-	  </div>
+	<div class="modal-container">
+		<div class="modal">
+			<span class="close-button">&times;</span>
+			<div class="modal-content">
+				<h3>Galerie photo</h3>
+				<div class="modal-gallery"></div>
+				<hr>
+				<button class="add-work-button">Ajouter une photo</button>
+			</div>
+		</div>
 	</div>
 </template>
 
 <template id="add-work-modal-template">
-	<div class="modal">
-	  <div class="modal-content">
-		<span class="back-button">&larr;</span>
-		<span class="close-button">&times;</span>
-		<h3>Ajout photo</h3>
-		<form id="add-work-form" class="form-section">
-		  <div class="upload-container">
-			<img id="preview-image" style="display: none;">
-			<label for="image-upload" class="upload-label">
-			  <i class="fa fa-image"></i>
-			  <span>+ Ajouter photo</span>
-			  <p>jpg, png: 4mo max</p>
-			</label>
-			<input type="file" id="image-upload" name="image" accept="image/png, image/jpeg" required>
+	<div class="modal-container">
+		<div class="modal">
+			<div class="modal-content">
+				<span class="back-button">&larr;</span>
+				<span class="close-button">&times;</span>
+				<h3>Ajout photo</h3>
+				<form id="add-work-form" class="form-section">
+				<div class="upload-container">
+					<img id="preview-image" style="display: none;">
+					<label for="image-upload" class="upload-label">
+					<i class="fa fa-image"></i>
+					<span>+ Ajouter photo</span>
+					<p>jpg, png: 4mo max</p>
+					</label>
+					<input type="file" id="image-upload" name="image" accept="image/png, image/jpeg" required>
+				</div>
+				<span class="error-message image-error"></span>
+
+					<label for="title">Titre</label>
+					<input type="text" name="title" id="title" required>
+					<span class="error-message title-error"></span>
+
+					<label for="category">Catégorie</label>
+					<select name="category" id="category" required></select>
+					<span class="error-message category-error"></span>
+					<hr>
+				<button type="submit" class="submit-button disabled">Valider</button>
+				</form>
+			</div>
 		</div>
-		<span class="error-message image-error"></span>
-
-			<label for="title">Titre</label>
-			<input type="text" name="title" id="title" required>
-			<span class="error-message title-error"></span>
-
-			<label for="category">Catégorie</label>
-			<select name="category" id="category" required></select>
-			<span class="error-message category-error"></span>
-			<hr>
-		  <button type="submit" class="submit-button disabled">Valider</button>
-		</form>
-	  </div>
 	</div>
 </template>
 

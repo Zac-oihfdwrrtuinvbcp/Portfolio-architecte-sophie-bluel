@@ -1,5 +1,5 @@
 import { deleteWork, addWork, fetchWorks } from "./client.js";
-import { createWork } from "./util.js";
+import { createWork, displayWorks } from "./util.js";
 import { categories } from "./main.js";
 let currentModal = null;
 
@@ -12,7 +12,7 @@ export async function openGalleryModal(works) {
     const modalFragment = document.getElementById('gallery-modal-template').content.cloneNode(true);
     if (!modalFragment) return;
     
-    const modal = modalFragment.querySelector('.modal');
+    const modal = modalFragment.querySelector('.modal-container');
     const gallery = modalFragment.querySelector('.modal-gallery');
     
     modalFragment.querySelector('.close-button')
@@ -22,7 +22,7 @@ export async function openGalleryModal(works) {
     .addEventListener('click', () => openAddWorkModal());
     
     works.forEach(work => {
-        const figure = createWork(work);
+        const figure = createWork(work, false);
 
         const deleteButton = document.createElement("button");
         deleteButton.classList.add("delete-button");
@@ -43,7 +43,7 @@ export async function openGalleryModal(works) {
     });
     
     document.body.appendChild(modalFragment);
-    currentModal = document.querySelector('.modal');
+    currentModal = document.querySelector('.modal-container');
   }
   
 export async function openAddWorkModal() {
@@ -55,7 +55,7 @@ export async function openAddWorkModal() {
     const modalFragment = document.getElementById('add-work-modal-template').content.cloneNode(true);
     if (!modalFragment) return;
     
-    const modal = modalFragment.querySelector('.modal');
+    const modal = modalFragment.querySelector('.modal-container');
     const form = modalFragment.querySelector('#add-work-form');
     const imageInput = modalFragment.querySelector('#image-upload');
     const previewImage = modalFragment.querySelector('#preview-image');
@@ -173,8 +173,9 @@ export async function openAddWorkModal() {
             
         const updatedWorks = await fetchWorks();
         openGalleryModal(updatedWorks);
+        displayWorks(updatedWorks);
     });
     
     document.body.appendChild(modalFragment);
-    currentModal = document.querySelector('.modal');
+    currentModal = document.querySelector('.modal-container');
 }
