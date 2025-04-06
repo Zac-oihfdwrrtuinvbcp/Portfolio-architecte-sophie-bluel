@@ -12,7 +12,7 @@ export async function login(credentials) {
         if (!response.ok) {
             let error = new Error(data.message);
             error.name = `http error ${response.status} ${response.statusText}`;
-            //throw error;
+            throw error;
         }
         
         return data;
